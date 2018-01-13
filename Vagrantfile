@@ -93,5 +93,22 @@ Vagrant.configure("2") do |config|
     mount -v -t ext4 /dev/sdc1 $LFS
     /sbin/swapon -v /dev/sdc2
 
+    # 3.1. Introduction
+    mkdir -v $LFS/sources
+    chmod -v a+wt $LFS/sources
+    cp -v /vagrant/sources/* $LFS/sources
+
+    # 4.2. Creating the $LFS/tools Directory
+    mkdir -v $LFS/tools
+    ln -sv $LFS/tools /
+
+    # 4.3. Adding the LFS User
+    groupadd lfs
+    useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+    echo -e "lfs\nlfs" | passwd lfs
+    chown -v lfs $LFS/tools
+    chown -v lfs $LFS/sources
+    su - lfs
+
   SHELL
 end

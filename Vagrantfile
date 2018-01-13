@@ -73,6 +73,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     # 2.2. Host System Requirements
     sudo su
+    sed -i 's|http://archive.|http://cn.archive.|g' /etc/apt/sources.list
     apt-get update
     apt-get install -y build-essential bison texinfo
     ln -fs bash /bin/sh
@@ -106,9 +107,10 @@ Vagrant.configure("2") do |config|
     groupadd lfs
     useradd -s /bin/bash -g lfs -m -k /dev/null lfs
     echo -e "lfs\nlfs" | passwd lfs
-    chown -v lfs $LFS/tools
-    chown -v lfs $LFS/sources
+    chown -vR lfs:lfs $LFS/tools
+    chown -vR lfs:lfs $LFS/sources
     su - lfs
+    echo $LFS
 
   SHELL
 end

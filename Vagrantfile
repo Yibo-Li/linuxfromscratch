@@ -72,9 +72,26 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     # 2.2. Host System Requirements
-    sudo apt-get update
-    sudo apt-get install -y build-essential bison texinfo
-    sudo ln -fs bash /bin/sh
+    sudo su
+    apt-get update
+    apt-get install -y build-essential bison texinfo
+    ln -fs bash /bin/sh
     /vagrant/version-check.sh
+
+    # 2.4. Creating a New Partition
+    parted -a optimal /dev/sdc mklabel msdos
+    parted -a optimal /dev/sdc mkpart primary 0% 32GiB
+    parted -a optimal /dev/sdc mkpart primary 32GiB 100%
+    # 2.5. Creating a File System on the Partition
+    mkfs -v -t ext4 /dev/sdc1
+    mkswap /dev/sdc2
+
+    # 2.6. Setting The $LFS Variable
+    export LFS=/mnt/lfs
+    # 2.7. Mounting the New Partition
+    mkdir -pv $LFS
+    mount -v -t ext4 /dev/sdc1 $LFS
+    /sbin/swapon -v /dev/sdc2
+
   SHELL
 end

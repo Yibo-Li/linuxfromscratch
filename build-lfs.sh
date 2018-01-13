@@ -1,6 +1,5 @@
 #!/bin/bash
 # 2.2. Host System Requirements
-sudo su
 sed -i 's|http://archive.|http://cn.archive.|g' /etc/apt/sources.list
 apt-get update
 apt-get install -y build-essential bison texinfo
@@ -37,5 +36,3 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 echo -e "lfs\nlfs" | passwd lfs
 chown -vR lfs:lfs $LFS/tools
 chown -vR lfs:lfs $LFS/sources
-su - lfs
-echo $LFS

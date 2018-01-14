@@ -24,7 +24,8 @@ mount -v -t ext4 /dev/sdc1 $LFS
 # 3.1. Introduction
 mkdir -v $LFS/sources
 chmod -v a+wt $LFS/sources
-cp -v /vagrant/sources/* $LFS/sources
+cp -rv /vagrant/sources $LFS
+cp -rv /vagrant/script $LFS
 
 # 4.2. Creating the $LFS/tools Directory
 mkdir -v $LFS/tools
@@ -34,8 +35,7 @@ ln -sv $LFS/tools /
 groupadd lfs
 useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 echo -e "lfs\nlfs" | passwd lfs
-chown -vR lfs:lfs $LFS/tools
-chown -vR lfs:lfs $LFS/sources
+chown -vR lfs:lfs $LFS
 
 # 4.4. Setting Up the Environment
 cat > /home/lfs/.bash_profile << "EOF"

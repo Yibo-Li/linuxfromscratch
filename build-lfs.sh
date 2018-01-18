@@ -43,7 +43,7 @@ chown -vR lfs:lfs $LFS
 
 # 4.4. Setting Up the Environment
 cat > /home/lfs/.bash_profile << EOF
-exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
+exec env -i HOME=/home/lfs TERM=xterm-256color PS1='\u:\w\$ ' /bin/bash
 EOF
 cat > /home/lfs/.bashrc << EOF
 set +h

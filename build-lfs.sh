@@ -20,6 +20,10 @@ export LFS=/mnt/lfs
 mkdir -pv $LFS
 mount -v -t ext4 /dev/sdc1 $LFS
 /sbin/swapon -v /dev/sdc2
+cat >> /etc/fstab << EOF
+/dev/sdc1 $LFS ext4 defaults 0 0
+/dev/sdc2 none swap defaults 0 0
+EOF
 
 # 3.1. Introduction
 mkdir -v $LFS/sources
@@ -38,13 +42,13 @@ echo -e "lfs\nlfs" | passwd lfs
 chown -vR lfs:lfs $LFS
 
 # 4.4. Setting Up the Environment
-cat > /home/lfs/.bash_profile << "EOF"
+cat > /home/lfs/.bash_profile << EOF
 exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
 EOF
-cat > /home/lfs/.bashrc << "EOF"
+cat > /home/lfs/.bashrc << EOF
 set +h
 umask 022
-LFS=/mnt/lfs
+LFS=$LFS
 LC_ALL=POSIX
 LFS_TGT=$(uname -m)-lfs-linux-gnu
 PATH=/tools/bin:/bin:/usr/bin

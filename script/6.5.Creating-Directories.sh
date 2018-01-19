@@ -1,4 +1,3 @@
-#!/bin/bash
 # 6.5. Creating Directories
 mkdir -pv /{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
 mkdir -pv /{media/{floppy,cdrom},sbin,srv,var}

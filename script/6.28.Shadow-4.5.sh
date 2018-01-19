@@ -16,6 +16,5 @@ make install
 mv -v /usr/bin/passwd /bin
 pwconv
 grpconv
-echo -e "root\nroot" | passwd root
 cd /sources
 rm -rf shadow-4.5

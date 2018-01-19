@@ -1,4 +1,3 @@
-#!/bin/bash
 # 6.6. Creating Essential Files and Symlinks
 ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} /bin
 ln -sv /tools/bin/{install,perl} /usr/bin
@@ -39,8 +38,3 @@ mail:x:34:
 nogroup:x:99:
 users:x:999:
 EOF
-exec /tools/bin/bash --login +h
-touch /var/log/{btmp,lastlog,faillog,wtmp}
-chgrp -v utmp /var/log/lastlog
-chmod -v 664  /var/log/lastlog
-chmod -v 600  /var/log/btmp

@@ -4,13 +4,12 @@ vagrant up
 vagrant ssh
 tmux new -s work
 
-sudo su
 su - lfs
 echo $LFS
 echo $LFS_TGT
 lsblk
 
-( $LFS/script/5.4.Binutils-2.29-Pass-1.sh && \
+time ( $LFS/script/5.4.Binutils-2.29-Pass-1.sh && \
 $LFS/script/5.5.GCC-7.2.0-Pass-1.sh && \
 $LFS/script/5.6.Linux-4.12.7-API-Headers.sh && \
 $LFS/script/5.7.Glibc-2.26.sh && \
@@ -54,10 +53,17 @@ lsblk
 $LFS/script/5.37.Changing-Ownership.sh
 $LFS/script/6.2.Preparing-Virtual-Kernel-File-Systems.sh
 $LFS/script/6.4.Entering-the-Chroot-Environment.sh
+
 /script/6.5.Creating-Directories.sh
 /script/6.6.Creating-Essential-Files-and-Symlinks.sh
 
-( /script/6.7.Linux-4.12.7-API-Headers.sh && \
+exec /tools/bin/bash --login +h
+touch /var/log/{btmp,lastlog,faillog,wtmp}
+chgrp -v utmp /var/log/lastlog
+chmod -v 664  /var/log/lastlog
+chmod -v 600  /var/log/btmp
+
+time ( /script/6.7.Linux-4.12.7-API-Headers.sh && \
 /script/6.8.Man-pages-4.12.sh && \
 /script/6.9.Glibc-2.26.sh && \
 /script/6.10.Adjusting-the-Toolchain.sh && \
@@ -78,14 +84,20 @@ $LFS/script/6.4.Entering-the-Chroot-Environment.sh
 /script/6.25.Acl-2.2.52.sh && \
 /script/6.26.Libcap-2.25.sh && \
 /script/6.27.Sed-4.4.sh && \
-/script/6.28.Shadow-4.5.sh && \
-/script/6.29.Psmisc-23.1.sh && \
+/script/6.28.Shadow-4.5.sh ) 2>&1 | tee /build-$(date +%Y%m%dT%H%M%S).log
+
+passwd root
+
+time ( /script/6.29.Psmisc-23.1.sh && \
 /script/6.30.Iana-Etc-2.30.sh && \
 /script/6.31.Bison-3.0.4.sh && \
 /script/6.32.Flex-2.6.4.sh && \
 /script/6.33.Grep-3.1.sh && \
-/script/6.34.Bash-4.4.sh && \
-/script/6.35.Libtool-2.4.6.sh && \
+/script/6.34.Bash-4.4.sh ) 2>&1 | tee /build-$(date +%Y%m%dT%H%M%S).log
+
+exec /bin/bash --login +h
+
+time ( /script/6.35.Libtool-2.4.6.sh && \
 /script/6.36.GDBM-1.13.sh && \
 /script/6.37.Gperf-3.1.sh && \
 /script/6.38.Expat-2.2.3.sh && \
@@ -135,7 +147,7 @@ chroot "$LFS" /usr/bin/env -i              \
     PATH=/bin:/usr/bin:/sbin:/usr/sbin     \
     /bin/bash --login
 
-( /script/7.2.LFS-Bootscripts-20170626.sh && \
+time ( /script/7.2.LFS-Bootscripts-20170626.sh && \
 /script/7.4.Managing-Devices.sh && \
 /script/7.5.General-Network-Configuration.sh && \
 /script/7.6.System-V-Bootscript-Usage-and-Configuration.sh && \

@@ -3,7 +3,7 @@
 cat > /etc/profile << "EOF"
 # Begin /etc/profile
 
-export LANG=en_US.utf8
+export LANG=en_US.iso88591
 
 # End /etc/profile
 EOF

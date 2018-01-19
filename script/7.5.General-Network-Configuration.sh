@@ -3,8 +3,12 @@
 cd /etc/sysconfig/
 cat > ifconfig.enp0s3 << "EOF"
 ONBOOT=yes
-IFACE=enp0s3
-SERVICE=dhcpcd
+IFACE=eth0
+SERVICE=ipv4-static
+IP=10.0.2.15
+GATEWAY=10.0.2.2
+PREFIX=24
+BROADCAST=10.0.2.255
 EOF
 cat > /etc/resolv.conf << "EOF"
 # Begin /etc/resolv.conf

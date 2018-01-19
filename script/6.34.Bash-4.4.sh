@@ -13,6 +13,5 @@ chown -Rv nobody .
 su nobody -s /bin/bash -c "PATH=$PATH make tests"
 make install
 mv -vf /usr/bin/bash /bin
-exec /bin/bash --login +h
 cd /sources
 rm -rf bash-4.4

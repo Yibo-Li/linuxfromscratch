@@ -42,6 +42,10 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 cp -rv /home/vagrant/.ssh /home/lfs
 chown -vR lfs:lfs $LFS
 chown -vR lfs:lfs /home/lfs/.ssh
+cat > /etc/sudoers.d/lfs << EOF
+lfs ALL=(ALL) NOPASSWD:ALL
+EOF
+chmod -v 440 /etc/sudoers.d/lfs
 
 # 4.4. Setting Up the Environment
 cat > /home/lfs/.bash_profile << EOF

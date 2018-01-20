@@ -3,7 +3,7 @@
 cd /etc/sysconfig/
 cat > ifconfig.enp0s3 << "EOF"
 ONBOOT=yes
-IFACE=eth0
+IFACE=enp0s3
 SERVICE=ipv4-static
 IP=10.0.2.15
 GATEWAY=10.0.2.2

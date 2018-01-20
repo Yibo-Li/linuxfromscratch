@@ -30,6 +30,7 @@ mkdir -v $LFS/sources
 chmod -v a+wt $LFS/sources
 cp -rv /vagrant/sources $LFS
 cp -rv /vagrant/script $LFS
+cp -v /vagrant/lfs-{prepare,build,config}.sh $LFS
 
 # 4.2. Creating the $LFS/tools Directory
 mkdir -v $LFS/tools
@@ -38,8 +39,9 @@ ln -sv $LFS/tools /
 # 4.3. Adding the LFS User
 groupadd lfs
 useradd -s /bin/bash -g lfs -m -k /dev/null lfs
-echo -e "lfs\nlfs" | passwd lfs
+cp -rv /home/vagrant/.ssh /home/lfs
 chown -vR lfs:lfs $LFS
+chown -vR lfs:lfs /home/lfs/.ssh
 
 # 4.4. Setting Up the Environment
 cat > /home/lfs/.bash_profile << EOF

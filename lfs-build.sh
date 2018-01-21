@@ -1,6 +1,6 @@
 #!/bin/bash
-time ( /script/6.5.Creating-Directories.sh && \
-/script/6.6.Creating-Essential-Files-and-Symlinks.sh && \
+time ( sh /script/6.5.Creating-Directories.sh && \
+sh /script/6.6.Creating-Essential-Files-and-Symlinks.sh && \
 /script/6.7.Linux-4.12.7-API-Headers.sh && \
 /script/6.8.Man-pages-4.12.sh && \
 /script/6.9.Glibc-2.26.sh && \

@@ -58,7 +58,8 @@ LFS=$LFS
 LC_ALL=POSIX
 LFS_TGT=$(uname -m)-lfs-linux-gnu
 PATH=/tools/bin:/bin:/usr/bin
-export LFS LC_ALL LFS_TGT PATH
+MAKEFLAGS='-j 2'
+export LFS LC_ALL LFS_TGT PATH MAKEFLAGS
 EOF
 chown -v lfs:lfs /home/lfs/.bash_profile
 chown -v lfs:lfs /home/lfs/.bashrc
